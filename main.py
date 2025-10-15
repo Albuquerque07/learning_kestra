@@ -4,7 +4,7 @@ from kestra import Kestra
 with open("kestradata.json", "r") as file:
     data = json.load(file)
 
-name = data.get("nome_usuario")
+name = data.get("user_name")
 
 message = f"Hello, {name}. Let's start!"
 
