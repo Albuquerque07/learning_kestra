@@ -1,0 +1,39 @@
+id: firstContact
+namespace: personal.project
+
+inputs:
+  - id: user_name
+    type: STRING
+    defalts: "User"
+
+tasks:
+  - id: script_python
+    type: io.kestra.plugin.scripts.python.Script
+    description: Execute the script to print a message
+    inputFiles:
+      kestradata.json: |
+        {
+          "user_name": "{{ inputs.user_name }}"
+        }
+    script: |
+      import json
+      from kestra import Kestra
+
+      with open("kestradata.json", "r") as file:
+          data = json.load(file)
+
+      name = data.get("user_name")
+
+      message = f"Hello, {name}. Let's start!"
+
+      Kestra.outputs({"generated_message": message})
+
+      print(f"Success!")
+
+  - id: logging_message
+    type: io.kestra.plugin.core.log.Log
+    message: "The message of script was: {{outputs.script_python.vars.generated_message }}"
+
+
+
+    
