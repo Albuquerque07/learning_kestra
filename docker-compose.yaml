@@ -1,15 +1,29 @@
+version: '3.8'
+
 services:
   kestra:
-    # 1. PUXA A IMAGEM COMPLETA DO KESTRA
-    image: kestra/kestra:latest 
-    
-    container_name: firstContainer
+    image: kestra/kestra:latest-full 
+    container_name: kestra_learning
     restart: always
     ports:
       - "8080:8080"
-    
-    # 2. CONECTA SEUS SCRIPTS LOCAIS AO CONTÊINER
     volumes:
-      - ./flows:/app/flows
-      - ./scripts:/app/scripts
-      - ./datas:/app/datas
+      - ./first_flow:/app/flows
+
+      - ./python:/app/scripts
+
+  postgres:
+    image: postgres:15.2
+    container_name: kestra_postgres_learning
+    restart: always
+    environment:
+      POSTGRES_USER: kestra
+      POSTGRES_PASSWORD: kestra
+      POSTGRES_DB: kestra
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
