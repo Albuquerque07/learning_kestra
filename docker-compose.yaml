@@ -1,0 +1,15 @@
+services:
+  kestra:
+    # 1. PUXA A IMAGEM COMPLETA DO KESTRA
+    image: kestra/kestra:latest 
+    
+    container_name: firstContainer
+    restart: always
+    ports:
+      - "8080:8080"
+    
+    # 2. CONECTA SEUS SCRIPTS LOCAIS AO CONTÊINER
+    volumes:
+      - ./flows:/app/flows
+      - ./scripts:/app/scripts
+      - ./datas:/app/datas

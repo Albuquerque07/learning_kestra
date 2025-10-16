@@ -1,7 +1,7 @@
 import json
 from kestra import Kestra
 
-with open("kestradata.json", "r") as file:
+with open("datas\kestradata.json", "r") as file:
     data = json.load(file)
 
 name = data.get("user_name")
