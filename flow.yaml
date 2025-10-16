@@ -9,6 +9,8 @@ inputs:
 tasks:
   - id: script_python
     type: io.kestra.plugin.scripts.python.Script
+    dependencies:
+      kestra
     description: Execute the script to print a message
     inputFiles:
       kestradata.json: |
